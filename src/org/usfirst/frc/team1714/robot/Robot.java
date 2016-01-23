@@ -1,12 +1,10 @@
 package org.usfirst.frc.team1714.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Relay;
-import java.util.Timer;
-import java.util.TimerTask;
+// import java.util.Timer;
+// import java.util.TimerTask;
 import edu.wpi.first.wpilibj.TalonSRX;
 
 
@@ -18,6 +16,8 @@ import edu.wpi.first.wpilibj.TalonSRX;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+
+/* broken, stock timer class doesn't work with roborio
 
 class TransTask extends TimerTask 
 {
@@ -52,14 +52,13 @@ class TransTask extends TimerTask
 	}
 }
 
+*/
+
 public class Robot extends IterativeRobot {
-	RobotDrive myRobot;
-	Joystick stick;
-	int autoLoopCounter;
-	Timer transtimer;
-	TransTask mytask;
-	long timerlength;
-	boolean test = true;
+	// Timer transtimer;
+	// TransTask mytask;
+	long intervallength;
+	// boolean test = true;
 
 	
     /**
@@ -67,10 +66,9 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	timerlength = 1000; 
-    	stick = new Joystick(0);
-    	transtimer = new Timer();
-    	mytask = new TransTask();   	
+    	intervallength = 1000;
+    	// transtimer = new Timer();
+    	// mytask = new TransTask();   	
     }
     
     /**
@@ -97,11 +95,13 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	/*
     	if(test)
     	{
     		transtimer.scheduleAtFixedRate(mytask, 0, timerlength);
     		test = false;
     	}
+    	*/
     }
     
     /**

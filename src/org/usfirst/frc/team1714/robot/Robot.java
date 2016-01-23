@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Relay;
 // import java.util.Timer;
 // import java.util.TimerTask;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Timer;
 
 
 
@@ -58,6 +59,13 @@ public class Robot extends IterativeRobot {
 	// Timer transtimer;
 	// TransTask mytask;
 	long intervallength;
+	Timer transtimer;
+	double currenttime;
+	double lasttime;
+	boolean forward;
+	TalonSRX mc1;
+	TalonSRX mc2;
+	final double speed = 0.2;
 	// boolean test = true;
 
 	
@@ -67,8 +75,13 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	intervallength = 1000;
+    	transtimer = new Timer();
+    	transtimer.start();
+    	forward = true;
+    	mc1 = new TalonSRX(0);
+    	mc2 = new TalonSRX(1);
     	// transtimer = new Timer();
-    	// mytask = new TransTask();   	
+    	// mytask = new TransTask(); 	
     }
     
     /**
@@ -81,7 +94,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	
+
     }
     
     /**
@@ -95,13 +108,30 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	/*
+    /*
     	if(test)
     	{
     		transtimer.scheduleAtFixedRate(mytask, 0, timerlength);
     		test = false;
     	}
-    	*/
+    */
+    	currenttime = transtimer.get();
+    	if( (currenttime - lasttime) > 30 )
+    	{
+    		if(forward)
+    		{
+    			mc1.set(speed);
+    			mc2.set(speed);
+    			forward = false;
+    		}
+    		else
+    		{
+    			mc1.set(-speed);
+    			mc2.set(-speed);
+    			forward = true;
+    		}
+    		lasttime = currenttime;
+    	}
     }
     
     /**

@@ -58,7 +58,7 @@ class TransTask extends TimerTask
 public class Robot extends IterativeRobot {
 	// Timer transtimer;
 	// TransTask mytask;
-	long intervallength;
+	double intervallength;
 	Timer transtimer;
 	double currenttime;
 	double lasttime;
@@ -74,7 +74,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	intervallength = 1000;
+    	intervallength = 5;
     	transtimer = new Timer();
     	transtimer.start();
     	forward = true;
@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot {
     	}
     */
     	currenttime = transtimer.get();
-    	if( (currenttime - lasttime) > 30 )
+    	if( (currenttime - lasttime) > intervallength )
     	{
     		if(forward)
     		{

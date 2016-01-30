@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.Relay;
 // import java.util.TimerTask;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 /**
@@ -68,6 +69,7 @@ public class Robot extends IterativeRobot {
 	CANTalon mc2;
 	final double speed = 0.2;
 	boolean alternating = false;
+	Encoder encoder;
 	// boolean test = true;
 
 	
@@ -76,13 +78,14 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	intervallength = 30;
-    	straightlength = 180;
+    	intervallength = 5;
+    	straightlength = 0;
     	transtimer = new Timer();
     	transtimer.start();
     	forward = true;
     	mc1 = new CANTalon(1);
     	mc2 = new CANTalon(2);
+    	encoder = new Encoder(5,6);
     	// transtimer = new Timer();
     	// mytask = new TransTask(); 	
     }
@@ -119,6 +122,8 @@ public class Robot extends IterativeRobot {
     	}
     */
     	currenttime = transtimer.get();
+    	SmartDashboard.putNumber("Time", transtimer.get());
+    	SmartDashboard.putNumber("Enc. Ticks", encoder.getDistance());
     	if(alternating)
     	{
 	    	if( (currenttime - lasttime) > intervallength )
@@ -137,6 +142,7 @@ public class Robot extends IterativeRobot {
 	    		}
 	    		lasttime = currenttime;
 	    	}
+	    	
     	}
     	else
     	{

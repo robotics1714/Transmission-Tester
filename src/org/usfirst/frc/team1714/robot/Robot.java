@@ -58,7 +58,8 @@ class TransTask extends TimerTask
 public class Robot extends IterativeRobot {
 	// Timer transtimer;
 	// TransTask mytask;
-	long intervallength;
+	double intervallength;
+	double straightlength;
 	Timer transtimer;
 	double currenttime;
 	double lasttime;
@@ -66,6 +67,7 @@ public class Robot extends IterativeRobot {
 	CANTalon mc1;
 	CANTalon mc2;
 	final double speed = 0.2;
+	boolean alternating = false;
 	// boolean test = true;
 
 	
@@ -74,7 +76,8 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	intervallength = 1000;
+    	intervallength = 30;
+    	straightlength = 180;
     	transtimer = new Timer();
     	transtimer.start();
     	forward = true;
@@ -116,21 +119,33 @@ public class Robot extends IterativeRobot {
     	}
     */
     	currenttime = transtimer.get();
-    	if( (currenttime - lasttime) > 30 )
+    	if(alternating)
     	{
-    		if(forward)
+	    	if( (currenttime - lasttime) > intervallength )
+	    	{
+	    		if(forward)
+	    		{
+	    			mc1.set(speed);
+	    			mc2.set(speed);
+	    			forward = false;
+	    		}
+	    		else
+	    		{
+	    			mc1.set(-speed);
+	    			mc2.set(-speed);
+	    			forward = true;
+	    		}
+	    		lasttime = currenttime;
+	    	}
+    	}
+    	else
+    	{
+    		mc1.set(speed);
+    		mc2.set(speed);
+    		if( (currenttime - lasttime) > straightlength)
     		{
-    			mc1.set(speed);
-    			mc2.set(speed);
-    			forward = false;
+    			alternating = true;
     		}
-    		else
-    		{
-    			mc1.set(-speed);
-    			mc2.set(-speed);
-    			forward = true;
-    		}
-    		lasttime = currenttime;
     	}
     }
     

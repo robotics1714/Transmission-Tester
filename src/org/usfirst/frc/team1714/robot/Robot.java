@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Relay;
 // import java.util.Timer;
 // import java.util.TimerTask;
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Timer;
 
 
@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.Timer;
 class TransTask extends TimerTask 
 {
 	Relay lrelay;
-	TalonSRX mc1;
+	CANTalon mc1;
 	
 	boolean forward = true;
 	
@@ -31,7 +31,7 @@ class TransTask extends TimerTask
 	{
 		super();
 		lrelay = new Relay(0);
-		mc1 = new TalonSRX(0);
+		mc1 = new CANTalon(0);
 	}
 	
 	public void run()
@@ -63,8 +63,8 @@ public class Robot extends IterativeRobot {
 	double currenttime;
 	double lasttime;
 	boolean forward;
-	TalonSRX mc1;
-	TalonSRX mc2;
+	CANTalon mc1;
+	CANTalon mc2;
 	final double speed = 0.2;
 	// boolean test = true;
 
@@ -78,8 +78,8 @@ public class Robot extends IterativeRobot {
     	transtimer = new Timer();
     	transtimer.start();
     	forward = true;
-    	mc1 = new TalonSRX(0);
-    	mc2 = new TalonSRX(1);
+    	mc1 = new CANTalon(1);
+    	mc2 = new CANTalon(2);
     	// transtimer = new Timer();
     	// mytask = new TransTask(); 	
     }
